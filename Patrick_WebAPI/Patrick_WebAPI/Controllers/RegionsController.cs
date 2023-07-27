@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Patrick_WebAPI.CustomActionFilters;
 using Patrick_WebAPI.Data;
 using Patrick_WebAPI.Models.Domain;
 using Patrick_WebAPI.Models.DTO;
@@ -80,10 +81,9 @@ namespace Patrick_WebAPI.Controllers
 		}
 
 		[HttpPost]
+		[ValidateModel]
 		public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDto) {
-
-			if (ModelState.IsValid)
-			{ 
+ 
 				//Map or convert DTO to Domain Model
 				// use domain model to create Region
 				//Region regionDomainModel = new Region()
@@ -106,15 +106,12 @@ namespace Patrick_WebAPI.Controllers
 				var regionDto = mapper.Map<RegionDto>(regionDomainModel);
 				return CreatedAtAction(nameof(GetOnly), new { id = regionDomainModel.Id }, regionDto);
 				//return Ok(regionDomainModel);
-			}
-			else
-			{
-				return BadRequest();
-			}
+			 
 		}
 
 		[HttpPut]
 		[Route("{id:Guid}")]
+		[ValidateModel]
 		public async Task<IActionResult> Update([FromRoute] Guid id,[FromBody]   UpdateRegionRequestDto updateRegionRequestDto)
 		{
 			 // Map DTO to Domain Model

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Patrick_WebAPI.CustomActionFilters;
 using Patrick_WebAPI.Data;
 using Patrick_WebAPI.Models.Domain;
 using Patrick_WebAPI.Models.DTO;
@@ -25,6 +26,7 @@ namespace Patrick_WebAPI.Controllers
 			this.walkRepository = walkRepository;
 		}
 		[HttpPost]
+		[ValidateModel]
 		public async Task<IActionResult> Create([FromBody] AddWalkRequestDto addWalkRequestDto)
 		{
 			// Map DTO to Domain Model
@@ -75,6 +77,7 @@ namespace Patrick_WebAPI.Controllers
 
 		[HttpPut]
 		[Route("{id:Guid}")]
+		[ValidateModel]
 		public async Task<IActionResult> Update([FromRoute] Guid id , [FromBody] UpdateWalkRequestDto updateWalkRequestDto)
 		{
 			//Map Dto to Domain Model
