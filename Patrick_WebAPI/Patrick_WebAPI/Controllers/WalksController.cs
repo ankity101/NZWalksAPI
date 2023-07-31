@@ -52,9 +52,10 @@ namespace Patrick_WebAPI.Controllers
 
 
 		[HttpGet]
-		public async Task<IActionResult> GetAll()
+		// GET : /api/walks?FilterOn=Name&FilterQuery=Track
+		public async Task<IActionResult> GetAll([FromQuery] string? FilterOn, [FromQuery] string? FilterQuery )
 		{
-			var walksDomainModel = await walkRepository.GetAllAsync();
+			var walksDomainModel = await walkRepository.GetAllAsync(FilterOn,FilterQuery);
 			//Map Domain Model to Dto
 			//var walkDto = new List<WalkDto>();
 

@@ -6,7 +6,7 @@ namespace Patrick_WebAPI.Repositories
 	{
 		Task<Walk> CreateAsync(Walk walk);
 
-		Task<List<Walk>> GetAllAsync();
+		Task<List<Walk>> GetAllAsync(string? FilterOn=null , string? FilterQuery = null);
 
 		Task<Walk?> GetByIdAsync(Guid id);
 

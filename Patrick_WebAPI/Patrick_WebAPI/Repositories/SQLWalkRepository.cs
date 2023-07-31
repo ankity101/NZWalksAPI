@@ -34,8 +34,20 @@ namespace Patrick_WebAPI.Repositories
 			return existingWalk;
 		}
 
-		public async Task<List<Walk>> GetAllAsync()
+		public async Task<List<Walk>> GetAllAsync(string? FilterOn = null, string? FilterQuery = null)
 		{
+
+			// var walks = await dbcontext.walks.Include("Difficulty").Include("region").asqueryable();
+
+			 
+			//if (string.IsNullOrWhiteSpace(FilterOn) == false  && string.IsNullOrWhiteSpace(FilterQuery)==false)
+			//{
+			//	if(FilterOn.Equals("Name",StringComparison.OrdinalIgnoreCase))
+			//	{
+			//		walks = walks.Where(x => x.Name.Contains(FilterQuery));
+			//	}
+			//}
+			// return await walks.ToListAsync();
 			return await dbContext.Walks.ToListAsync();
 		}
 
