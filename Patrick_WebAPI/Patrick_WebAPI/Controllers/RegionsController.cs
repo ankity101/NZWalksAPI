@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +9,6 @@ using Patrick_WebAPI.Models.Domain;
 using Patrick_WebAPI.Models.DTO;
 using Patrick_WebAPI.Repositories;
 using System.Collections.Generic;
-
 namespace Patrick_WebAPI.Controllers
 {
  
@@ -17,6 +17,7 @@ namespace Patrick_WebAPI.Controllers
 	[Route("api/[controller]")]
 	
 	[ApiController]
+	[Authorize]
 	public class RegionsController : ControllerBase
 	{
  
