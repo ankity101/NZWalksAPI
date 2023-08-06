@@ -16,6 +16,8 @@ namespace Patrick_WebAPI.Data
 
 		public DbSet<Walk> Walks { get; set; }
 
+        public DbSet<Image> Images { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -23,45 +25,8 @@ namespace Patrick_WebAPI.Data
             // Seed data for difficulty
             // Easy, Medium , Hard
 
-            var difficulties = new List<Difficulty>()
-            {
-                new Difficulty()
-                {
-                    Id= Guid.NewGuid(),
-                    Name = "Easy"
-                },
-
-                new Difficulty()
-                {
-                    Id= Guid.NewGuid(),
-                    Name = "Medium"
-                },
-                new Difficulty()
-                {
-                    Id= Guid.NewGuid(),
-                    Name = "Hard"
-                },
-            };
-
-			modelBuilder.Entity<Difficulty>().HasData(difficulties);
-
-			// seeding data for Walk
-
-			var walks = new List<Walk>()
-			{
-				new Walk()
-				{
-					ID= Guid.NewGuid(),
-					Name = "Dummmy-Walk",
-					Description ="this is dummy Walk",
-					LengthInKm = 1,
-					WalkImageUrl = "Imge-dummy.jpg",
-					DifficultyId = Guid.NewGuid(),
-					RegionId = Guid.NewGuid()
-
-				}
-			};
-			modelBuilder.Entity<Walk>().HasData(walks);
+        
+			 
 			// seeding the region data
 
 			var regions = new List<Region>()
