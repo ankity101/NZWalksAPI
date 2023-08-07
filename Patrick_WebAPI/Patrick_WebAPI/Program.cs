@@ -8,10 +8,25 @@ using Patrick_WebAPI.Repositories;
 using System.Text;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
+using Serilog;
+using Patrick_WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+var logger = new LoggerConfiguration()
+	.WriteTo.Console()
+	.WriteTo.File("Logs/NZWalks_Logs.txt", rollingInterval: RollingInterval.Hour)	
+	.MinimumLevel.Information() 
+	.CreateLogger();
+// now i have to supply logger variable to builder object
+//First Clear out aby provider if present
+builder.Logging.ClearProviders();
+// Add Serilog
+builder.Logging.AddSerilog(logger);
+//
 
 builder.Services.AddControllers();
 
@@ -95,7 +110,8 @@ if (app.Environment.IsDevelopment())
 	app.UseSwagger();
 	app.UseSwaggerUI();
 }
-
+//Adding ExceptionHandeler Middleware
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

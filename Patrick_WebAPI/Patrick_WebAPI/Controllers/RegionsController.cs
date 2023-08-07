@@ -8,7 +8,10 @@ using Patrick_WebAPI.Data;
 using Patrick_WebAPI.Models.Domain;
 using Patrick_WebAPI.Models.DTO;
 using Patrick_WebAPI.Repositories;
+using Serilog;
 using System.Collections.Generic;
+using System.Text.Json;
+
 namespace Patrick_WebAPI.Controllers
 {
  
@@ -17,24 +20,32 @@ namespace Patrick_WebAPI.Controllers
 	[Route("api/[controller]")]
 	
 	[ApiController]
-	[Authorize]
+	//[Authorize]
 	public class RegionsController : ControllerBase
 	{
  
 		private readonly NZWalksDbContext dbContext;
 		private readonly IRegionRepository regionRepository;
 		private readonly IMapper mapper;
+		private readonly ILogger<RegionsController> logger;
+
 		public RegionsController(NZWalksDbContext dbContext , IRegionRepository regionRepository,
-			IMapper mapper )
+			IMapper mapper , ILogger<RegionsController> logger )
 		{
 			this.dbContext = dbContext;
 			this.regionRepository = regionRepository;
 			this.mapper = mapper;
+			this.logger = logger;
 		}
 		[HttpGet]
-		[Authorize(Roles ="Reader")]
+		//[Authorize(Roles ="Reader")]
 		public async Task<IActionResult> GetAll()
 		{
+
+			logger.LogInformation("GetAllRegions Action Method Invoked");
+
+			
+
 		   var regionsDomain = await regionRepository.GetAllAsync();
 
 			// mapping Domain Model to DTO
@@ -50,6 +61,8 @@ namespace Patrick_WebAPI.Controllers
 			//	}
 			//	);
 			//}
+
+			logger.LogInformation($"Get all method Finished with data: {JsonSerializer.Serialize(regionsDomain)}");
 
 			var regionsDto = mapper.Map<List<RegionDto>>(regionsDomain);
 

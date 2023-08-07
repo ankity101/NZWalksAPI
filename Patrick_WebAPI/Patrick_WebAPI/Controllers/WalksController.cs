@@ -8,6 +8,7 @@ using Patrick_WebAPI.Models.Domain;
 using Patrick_WebAPI.Models.DTO;
 using Patrick_WebAPI.Repositories;
 using System.Data.Entity;
+using System.Net;
 
 namespace Patrick_WebAPI.Controllers
 {
@@ -55,24 +56,26 @@ namespace Patrick_WebAPI.Controllers
 		// GET : /api/walks?FilterOn=Name&FilterQuery=Track
 		public async Task<IActionResult> GetAll([FromQuery] string? FilterOn, [FromQuery] string? FilterQuery )
 		{
-			var walksDomainModel = await walkRepository.GetAllAsync(FilterOn,FilterQuery);
-			//Map Domain Model to Dto
-			//var walkDto = new List<WalkDto>();
+			 
+				var walksDomainModel = await walkRepository.GetAllAsync(FilterOn, FilterQuery);
+				//Map Domain Model to Dto
+				//var walkDto = new List<WalkDto>();
 
-			//foreach (var walk in walksDomainModel)
-			// {
-			//	var walkDtoTemp = new WalkDto()
-			//	{
-			//		Name = walk.Name,
-			//		Description = walk.Description,
-			//		LengthInKm = walk.LengthInKm,
-			//		WalkImageUrl = walk.WalkImageUrl,
-			//		DifficultyId = walk.DifficultyId,
-			//		RegionId = walk.RegionId
-			//	};
-			//	 walkDto.Add(walkDtoTemp);
-			//}	
-			return Ok(mapper.Map<List<WalkDto>>(walksDomainModel));
+				//foreach (var walk in walksDomainModel)
+				// {
+				//	var walkDtoTemp = new WalkDto()
+				//	{
+				//		Name = walk.Name,
+				//		Description = walk.Description,
+				//		LengthInKm = walk.LengthInKm,
+				//		WalkImageUrl = walk.WalkImageUrl,
+				//		DifficultyId = walk.DifficultyId,
+				//		RegionId = walk.RegionId
+				//	};
+				//	 walkDto.Add(walkDtoTemp);
+				//}	
+				return Ok(mapper.Map<List<WalkDto>>(walksDomainModel));
+			 
 		}
 
 
